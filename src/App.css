@@ -1,38 +1,84 @@
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App-header {
+  width: 100%;
+  height: 60px;
+  background-color: #0c9bf5;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 10;
 }
 
-.App-link {
-  color: #61dafb;
+.controls {
+  margin-top: 10px;
+  z-index: 20;
+  text-align: center;
+}
+.house-container {
+  position: relative;
+  width: 90vw;           /* ocupa quase toda a largura da tela */
+  max-width: 1500px;     /* permite expandir em telas grandes */
+  aspect-ratio: 16 / 9;  /* mantém proporção */
+  background-image: url("./assets/House_map.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+.house-container > div {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.Light1 {
+  top: 20%;
+  left: 50%;
+}
+.Light2 {
+  top: 54%;
+  left: 54%;
+}
+.Light3 {
+  top: 54%;
+  left: 38%;
+}
+.Light4 {
+  top: 79%;
+  left: 58%;
+}
+.Light5 {
+  top: 79%;
+  left: 42%;
+}
+
+@media (max-width: 768px) {
+  .house-container {
+    width: 95vw;
   }
-  to {
-    transform: rotate(360deg);
+
+  .App-header {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    height: 50px;
+    font-size: 16px;
   }
 }
