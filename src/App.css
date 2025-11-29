@@ -1,13 +1,20 @@
+/* Estilos globais */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  background-color: #f7f7f7; /* Fundo padrão (Dia) */
+  transition: background-color 0.5s ease; /* Transição suave */
 }
 
+/* Cabeçalho */
 .App-header {
   width: 100%;
   height: 60px;
@@ -15,36 +22,104 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: clamp(18px, 2vw, 26px);
+  justify-content: space-between; /* Distribui espaço entre título e status */
+  padding: 0 20px;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  box-sizing: border-box;
+  transition: background-color 0.5s ease; /* Transição suave */
 }
 
+.header-title {
+    margin: 0;
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: bold;
+}
+
+/* Barra de Status (Dia/Noite e Hora) */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espaço entre o status e a hora */
+  padding: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.status-text {
+  margin: 0;
+}
+
+.time-text {
+  margin: 0;
+}
+
+/* Controles de Conexão */
 .controls {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   z-index: 20;
   text-align: center;
+  padding: 15px 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
+
+.connection-status {
+  /* Estilo para o status de conexão bem-sucedida */
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+/* Contêiner do Mapa da Casa */
 .house-container {
   position: relative;
-  width: 90vw;           /* ocupa quase toda a largura da tela */
-  max-width: 1500px;     /* permite expandir em telas grandes */
-  aspect-ratio: 16 / 9;  /* mantém proporção */
-  background-image: url("./assets/House_map.png");
+  width: 90vw;
+  max-width: 1500px;
+  aspect-ratio: 16 / 9;
+  background-image: url("./assets/House_map.png"); /* Mapa padrão (Dia) */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   margin-top: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  /* A imagem de fundo será alterada via estilo inline no App.js */
 }
 
-
+/* Posição base para as luzes (centraliza o ícone no ponto) */
 .house-container > div {
   position: absolute;
   transform: translate(-50%, -50%);
 }
 
+/* Estilo para o ícone de luz */
+.light {
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+  display: inline-block;
+}
+
+.light:hover {
+  opacity: 0.9;
+}
+
+.light:active {
+  transform: scale(0.9);
+}
+
+
+/* Posições específicas das Luzes (Ajuste esses valores conforme o seu mapa) */
 .Light1 {
   top: 20%;
   left: 50%;
@@ -66,19 +141,73 @@
   left: 42%;
 }
 
+/* ---------------------------------------------------------------------- */
+/* --- ESTILOS DO MODO NOTURNO --- */
+/* ---------------------------------------------------------------------- */
+
+/* Regras para quando a classe .dark-mode estiver ativa */
+.App.dark-mode {
+  background-color: #212529; /* Fundo escuro */
+}
+
+.App.dark-mode .App-header {
+  background-color: #495057; /* Cabeçalho mais escuro */
+}
+
+.App.dark-mode .controls {
+  background-color: #343a40; /* Controles escuros */
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.App.dark-mode .status-bar {
+  color: #f8f9fa; /* Texto claro na barra de status */
+}
+
+.App.dark-mode .controls button {
+  /* Altera a cor do botão Conectar para o azul, mais visível em fundo escuro */
+  background-color: #007bff !important;
+}
+
+.App.dark-mode .controls button:hover {
+  background-color: #0056b3 !important;
+}
+
+/* Media Queries para Responsividade */
 @media (max-width: 768px) {
   .house-container {
     width: 95vw;
+    margin-top: 15px;
+    margin-bottom: 20px;
   }
 
+  /* Ajuste o header para telas menores */
   .App-header {
+    padding: 0 10px; 
+    height: 55px;
+  }
+  
+  .header-title {
     font-size: clamp(16px, 4vw, 22px);
+  }
+
+  .status-bar {
+    gap: 10px;
+    font-size: 0.8rem;
+  }
+  
+  /* Reduz o tamanho dos ícones de luz em telas menores */
+  .light svg {
+    width: 35px !important;
+    height: 35px !important;
   }
 }
 
 @media (max-width: 480px) {
   .App-header {
     height: 50px;
+  }
+
+  .header-title {
     font-size: 16px;
   }
 }
